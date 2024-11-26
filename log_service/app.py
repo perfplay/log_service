@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 LOG_FILE = os.path.join(os.path.dirname(__file__), "request_logs.txt")
 
-@app.route('/process_request', methods=['POST'])
+@app.route('/', methods=['POST'])
 def process_request():
     try:
         request_data = request.get_json()

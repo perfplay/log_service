@@ -1,5 +1,0 @@
-{"timestamp": "2024-11-26T22:16:38.116371", "data": {"device_id": "123", "user_id": "456", "error": "Test error"}}
-{"timestamp": "2024-11-26T22:23:07.387083", "data": {"device_id": "123", "user_id": "456", "error": "Test error"}}
-{"timestamp": "2024-11-26T22:23:13.123450", "data": {"device_id": "123", "user_id": "456", "error": "Test error"}}
-{"timestamp": "2024-11-26T22:23:17.041027", "data": {"device_id": "123", "user_id": "456", "error": "Test error"}}
-{"timestamp": "2024-11-27T01:25:58.767448", "data": {"device_id": "123", "error": "Some error", "user_id": "456"}}
