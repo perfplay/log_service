@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "log-service"
+version = "0.1.0"
+description = ""
+authors = ["Zak Fein <zak@zergling.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+flask = "^3.1.0"
+pytest = "^8.3.3"
+gunicorn = "^23.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+log-service = "log_service.app:main"
