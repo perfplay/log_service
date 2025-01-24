@@ -14,4 +14,4 @@ ENV PYTHONUNBUFFERED=1
 
 EXPOSE 29501 29502
 
-CMD ["gunicorn -w $GUNICORN_WORKERS -b $APP_BIND log_service.app:app & gunicorn -w 1 -b $METRICS_BIND log_service.app:metrics_app"]
+CMD /bin/sh -c "gunicorn -w $GUNICORN_WORKERS -b $APP_BIND log_service.app:app & gunicorn -w 1 -b $METRICS_BIND log_service.app:metrics_app"
