@@ -29,8 +29,10 @@ CACHE_REFRESH_INTERVAL = timedelta(seconds=10)
 app = Flask(__name__)
 
 log_line_count = Gauge("pp_service_request_log_lines", "Number of lines in the log file")
+unique_device_count = Gauge("pp_service_unique_device_ids", "Number of unique device IDs in the log file")
+unique_error_count = Gauge("pp_service_unique_errors", "Number of unique error messages in the log file")
 
-LOG_FILE = os.path.join(os.path.dirname(__file__), "request_logs.txt")
+LOG_FILE = os.path.join(os.path.dirname(__file__), "request_logs.log")
 
 
 def count_log_lines():
@@ -40,6 +42,22 @@ def count_log_lines():
         return sum(1 for _ in log_file)
 
 
+def count_unique_values(key):
+    if not os.path.exists(LOG_FILE):
+        return 0
+    unique_values = set()
+    with open(LOG_FILE, 'r', encoding='utf-8') as log_file:
+        for line in log_file:
+            try:
+                entry = json.loads(line)
+                value = entry.get("data", {}).get(key)
+                if value:
+                    unique_values.add(value)
+            except json.JSONDecodeError:
+                continue
+    return len(unique_values)
+
+
 def update_metrics():
     global last_updated, cached_line_count
     with cache_lock:
@@ -47,6 +65,8 @@ def update_metrics():
         if now - last_updated >= CACHE_REFRESH_INTERVAL:
             cached_line_count = count_log_lines()
             log_line_count.set(cached_line_count)
+            unique_device_count.set(count_unique_values("device_id"))
+            unique_error_count.set(count_unique_values("error"))
             last_updated = now
 
 
